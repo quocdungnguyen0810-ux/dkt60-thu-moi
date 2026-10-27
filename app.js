@@ -31,8 +31,10 @@ form.addEventListener("change", () => {
 
 // ---- Vé check-in: QR chỉ chứa mã đăng ký (không chứa dữ liệu cá nhân) ----
 function renderTicket(rec) {
-  const qr = qrcode(0, "H"); qr.addData(rec.maDangKy); qr.make();
-  const n = qr.getModuleCount(), cell = 10, quiet = 4, qs = (n + quiet * 2) * cell;
+  // QR = đường link tới trang check-in kèm mã; chỉ cán bộ có PIN mới xem được thông tin
+  const qr = qrcode(0, "M");
+  qr.addData(new URL("checkin.html?c=" + rec.maDangKy, location.href).href); qr.make();
+  const n = qr.getModuleCount(), quiet = 4, cell = Math.max(4, Math.floor(540 / (n + quiet * 2))), qs = (n + quiet * 2) * cell;
   const W = 640, H = qs + 330;
   const cv = document.createElement("canvas"); cv.width = W; cv.height = H;
   const g = cv.getContext("2d");
