@@ -1,0 +1,70 @@
+/* Bảng màu theo thư mời bản cứng: xanh dương #0000CC/#0070C0, cam #FF9900, vàng đồng #DCB064, nền trời xanh nhạt – kem */
+:root{--navy:#0a2a8a;--blue:#0070c0;--royal:#0000cc;--gold:#b98a3e;--gold-l:#dcb064;--orange:#ff9900;--sand:#f7f1e3;--sky:#dff0f8;--ink:#17233a;--red:#b3261e}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#eef6fa url(assets/nen_vang_dong.png) center/cover fixed}
+a{color:var(--navy)}
+.nav{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:.5rem 1.2rem;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:2px solid var(--gold-l)}
+.nav a{color:var(--navy);text-decoration:none;margin-left:1rem;font-size:.95rem;font-weight:600}
+.nav a:hover{color:var(--orange)}
+.nav .brand{display:flex;align-items:center;gap:.5rem;font-weight:800;color:var(--royal);margin:0;letter-spacing:.06em}
+.nav .brand img{height:34px;width:34px}
+/* Banner: ảnh tòa nhà trường làm nền, chữ ở vùng trời phía trên */
+.hero{text-align:center;color:var(--navy);padding:2.2rem 1rem calc(34vw + 1rem);background:linear-gradient(180deg,rgba(223,240,248,.2),rgba(255,255,255,0) 60%),url(assets/banner_utc.jpg) center bottom/cover no-repeat,var(--sky);position:relative;border-bottom:4px solid var(--gold-l)}
+.hero .logo{width:84px;height:84px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.hero .org{letter-spacing:.1em;font-size:.95rem;font-weight:700;color:var(--royal);margin:.4rem 0}
+.hero h1{font-size:clamp(2.8rem,9vw,5.6rem);margin:.2rem 0;line-height:1.05;font-weight:900;color:var(--orange);text-shadow:0 2px 0 #fff,0 4px 10px rgba(185,138,62,.35)}
+.hero h1 span{display:block;font-size:.42em;color:var(--royal);letter-spacing:.06em;text-shadow:0 1px 0 #fff}
+.hero .sub{font-weight:800;letter-spacing:.1em;color:var(--blue);font-size:1.15rem;margin:.2rem 0}
+.hero .years{display:inline-block;font-size:1.8rem;font-weight:800;margin:.3rem 0;color:var(--royal);padding:0 1.4rem;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+.hero .slogan{font-style:italic;font-weight:600;color:var(--navy);margin:.5rem 0}
+.countdown{display:flex;justify-content:center;gap:.7rem;margin:1rem 0;flex-wrap:wrap}
+.countdown div{background:rgba(255,255,255,.85);border:1.5px solid var(--gold-l);border-radius:10px;padding:.4rem .9rem;min-width:70px;color:var(--navy);font-weight:600}
+.countdown b{display:block;font-size:1.6rem;color:var(--royal)}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--orange),var(--gold-l));color:#10205a;border:0;border-radius:999px;padding:.8rem 2rem;font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.6;cursor:wait}
+.sec{max-width:980px;margin:1.5rem auto;padding:2.5rem 1.4rem;background:rgba(255,255,255,.82);border:2px solid var(--gold-l);border-radius:6px;outline:1px solid rgba(185,138,62,.5);outline-offset:-8px}
+.sec.alt{max-width:980px;background:rgba(255,248,232,.88)}
+.sec.alt>*{max-width:900px;margin-left:auto;margin-right:auto}
+h2{text-align:center;color:var(--royal);letter-spacing:.12em;margin:0 0 1rem}
+h2::after{content:"";display:block;width:80px;height:3px;background:linear-gradient(90deg,var(--orange),var(--gold-l));margin:.6rem auto 0}
+.lead{text-align:center;font-size:1.1rem}
+.who,.note{text-align:center}
+.sign{text-align:right;margin-top:2rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin:1.5rem auto}
+.card{background:#fff;border:1px solid #e3d9bf;border-radius:14px;padding:1.2rem 1.4rem;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.card h3{margin:.2rem 0 .4rem;color:var(--navy)}
+.pay{text-align:center}
+.pay img{max-width:240px;width:100%;border-radius:12px}
+.mini{border:1px solid var(--navy);background:#fff;border-radius:6px;cursor:pointer;padding:.1rem .5rem}
+.timeline{list-style:none;padding:0;border-left:3px solid var(--gold)}
+.timeline li{position:relative;margin:0 0 1.5rem;padding-left:1.4rem}
+.timeline li::before{content:"";position:absolute;left:-9px;top:.4rem;width:15px;height:15px;border-radius:50%;background:var(--navy);border:3px solid var(--gold)}
+.timeline time{font-weight:700;color:#fff;background:var(--blue);padding:.1rem .6rem;border-radius:6px}
+.timeline h3{margin:.6rem 0 .2rem;color:var(--navy)}
+form{background:#fff;border:1px solid #e3d9bf;border-radius:14px;padding:1.4rem;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+label{display:block;font-weight:600;margin-bottom:.9rem}
+input:not([type=radio]):not([type=checkbox]),select,textarea{display:block;width:100%;margin-top:.3rem;padding:.6rem .7rem;border:1px solid #b9c2cc;border-radius:8px;font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+fieldset{border:1px solid #d8dee5;border-radius:10px;margin:0 0 1rem}
+legend{font-weight:700;color:var(--navy);padding:0 .4rem}
+.inline{display:inline-block;font-weight:500;margin-right:1.2rem}
+.consent{display:block}
+.err{color:var(--red);font-weight:600;min-height:1.4em}
+.success{background:#eef8ee;border:2px solid #3a8a3a;border-radius:14px;padding:1.5rem;text-align:center}
+.success b{font-size:1.5rem;color:var(--navy);letter-spacing:.08em}
+#qrTicket{margin:1rem 0}
+footer{text-align:center;background:var(--royal);color:#fff;padding:1.2rem;font-size:.9rem;border-top:4px solid var(--gold-l)}
+footer a{color:var(--gold-l)}
+/* Admin */
+.adm{max-width:1200px;margin:0 auto;padding:1.5rem}
+.adm table{width:100%;border-collapse:collapse;font-size:.88rem;display:block;overflow-x:auto}
+.adm th,.adm td{border:1px solid #ccd;padding:.4rem .5rem;text-align:left;white-space:nowrap}
+.adm th{background:var(--navy);color:#fff}
+.stats{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0}
+.stats div{background:var(--sand);border-radius:10px;padding:.7rem 1.2rem}
+.stats b{display:block;font-size:1.6rem;color:var(--navy)}
+@media(max-width:600px){.nav .links a{margin-left:.6rem;font-size:.85rem}}
+

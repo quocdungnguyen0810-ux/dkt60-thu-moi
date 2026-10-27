@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thư mời – 60 năm Địa kỹ thuật UTC (1966–2026)</title>
+<meta name="description" content="Thư mời gặp mặt kỷ niệm 60 năm và Hội thảo khoa học Địa kỹ thuật & Không gian ngầm, ngày 18/11/2026.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#top" class="brand"><img src="assets/logo_utc.png" alt="Logo Trường ĐH Giao thông vận tải">60 NĂM · ĐKT</a>
+  <div class="links">
+    <a href="#thu-moi">Thư mời</a>
+    <a href="#chuong-trinh">Chương trình</a>
+    <a href="#dang-ky">Đăng ký</a>
+    <a href="#lien-he">Liên hệ</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img class="logo" src="assets/logo_utc.png" alt="Logo Trường Đại học Giao thông vận tải">
+  <p class="org">TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI<br>BỘ MÔN ĐỊA KỸ THUẬT VÀ KHÔNG GIAN NGẦM</p>
+  <h1>60 NĂM<br><span>XÂY DỰNG – PHÁT TRIỂN</span></h1>
+  <p class="sub">ĐỊA KỸ THUẬT – GIAO THÔNG VẬN TẢI</p>
+  <p class="years">1966 – 2026</p>
+  <p class="slogan">Kế thừa truyền thống · Kết nối tri thức · Kiến tạo tương lai</p>
+  <div class="countdown" id="countdown" aria-live="polite"></div>
+  <a class="btn" href="#dang-ky">Xác nhận tham dự</a>
+</header>
+
+<section id="thu-moi" class="sec invite">
+  <h2>THƯ MỜI</h2>
+  <p class="lead">Tham dự gặp mặt kỷ niệm 60 năm xây dựng và phát triển<br>và Hội thảo khoa học <b>“Địa kỹ thuật &amp; Không gian ngầm”</b></p>
+  <p class="who">Bộ môn Địa kỹ thuật và Không gian ngầm – Trường Đại học Giao thông vận tải<br>trân trọng kính mời Quý vị tham dự chương trình.</p>
+  <div class="cards">
+    <div class="card"><h3>🕗 Thời gian</h3><p>08:30 – 11:30<br>Thứ Tư, ngày 18/11/2026</p></div>
+    <div class="card"><h3>📍 Địa điểm</h3><p>Phòng 601, nhà A1<br>Trường Đại học Giao thông vận tải<br>Số 3 Cầu Giấy, phường Láng, TP. Hà Nội</p></div>
+  </div>
+  <p class="note">Sự hiện diện của Quý vị là niềm vinh dự và góp phần tạo nên thành công của chương trình.</p>
+  <p class="sign">TRƯỞNG BỘ MÔN<br><b>GS.TS. Trần Thế Truyền</b></p>
+</section>
+
+<section id="chuong-trinh" class="sec alt">
+  <h2>CHƯƠNG TRÌNH</h2>
+  <ol class="timeline">
+    <li><time>08:00 – 08:30</time><h3>Đón tiếp đại biểu</h3></li>
+    <li><time>08:30 – 11:30</time>
+      <h3>01 | 60 năm xây dựng và phát triển</h3>
+      <ul><li>Tổng kết 60 năm truyền thống Bộ môn Địa kỹ thuật;</li><li>Tri ân các thế hệ thầy cô giáo;</li><li>Giới thiệu và ra mắt Bộ môn Địa kỹ thuật và Không gian ngầm.</li></ul>
+      <h3>02 | Hội thảo khoa học “Địa kỹ thuật &amp; Không gian ngầm”</h3>
+      <p>Trao đổi kết quả nghiên cứu và kinh nghiệm thực tiễn về:</p>
+      <ul><li>Địa kỹ thuật công trình giao thông;</li><li>Hầm và công trình ngầm giao thông;</li><li>Công trình ngầm phục vụ phát triển đô thị.</li></ul>
+      <h3>03 | Đồng hành – Tiếp bước</h3>
+      <ul><li>Giao lưu – kết nối – đồng hành;</li><li>Trao học bổng cho quỹ NCKH của sinh viên.</li></ul>
+    </li>
+    <li><time>11:30 – 13:00</time><h3>Tiệc trưa và giao lưu</h3></li>
+  </ol>
+</section>
+
+<section id="dang-ky" class="sec">
+  <h2>XÁC NHẬN THAM DỰ</h2>
+  <p class="lead">Để công tác tổ chức được chu đáo, vui lòng xác nhận tham dự trước ngày <b id="deadline"></b>.</p>
+
+  <form id="regForm" novalidate>
+    <div class="grid">
+      <label>Họ và tên *<input name="hoTen" required maxlength="80" autocomplete="name"></label>
+      <label>Học hàm, học vị / Chức danh<input name="chucDanh" maxlength="80" placeholder="VD: PGS.TS., ThS., Kỹ sư..."></label>
+      <label>Đơn vị công tác *<input name="donVi" required maxlength="120" autocomplete="organization"></label>
+      <label>Nhóm đại biểu *
+        <select name="nhom" required>
+          <option value="">-- Chọn --</option>
+          <option>Lãnh đạo / Khách mời</option>
+          <option>Cán bộ, giảng viên hiện tại</option>
+          <option>Cựu cán bộ, giảng viên</option>
+          <option>Cựu sinh viên</option>
+          <option>Đối tác / Doanh nghiệp</option>
+          <option>Sinh viên / Học viên</option>
+          <option>Khác</option>
+        </select></label>
+      <label>Số điện thoại *<input name="sdt" type="tel" required inputmode="tel" autocomplete="tel" placeholder="0xxxxxxxxx"></label>
+      <label>Email *<input name="email" type="email" required maxlength="100" autocomplete="email"></label>
+    </div>
+
+    <fieldset>
+      <legend>Quý vị sẽ tham dự? *</legend>
+      <label class="inline"><input type="radio" name="thamDu" value="Có" required> Có, tôi sẽ tham dự</label>
+      <label class="inline"><input type="radio" name="thamDu" value="Không"> Rất tiếc, tôi không thể tham dự</label>
+    </fieldset>
+
+    <div id="attendBox">
+      <div class="grid">
+        <label>Số người đi cùng (không kể bản thân)<input name="nguoiDiCung" type="number" min="0" max="10" value="0"></label>
+        <label>Chế độ ăn / Ghi chú tiệc trưa<input name="anUong" maxlength="120" placeholder="VD: ăn chay, dị ứng..."></label>
+      </div>
+      <fieldset>
+        <legend>Nội dung tham gia</legend>
+        <label class="inline"><input type="checkbox" name="noiDung" value="Lễ gặp mặt 60 năm"> Gặp mặt 60 năm</label>
+        <label class="inline"><input type="checkbox" name="noiDung" value="Hội thảo khoa học"> Hội thảo khoa học</label>
+        <label class="inline"><input type="checkbox" name="noiDung" value="Tiệc trưa & giao lưu"> Tiệc trưa &amp; giao lưu</label>
+      </fieldset>
+      <label>Muốn đăng ký báo cáo / tham luận tại hội thảo? (tên đề tài, nếu có)<input name="thamLuan" maxlength="200"></label>
+    </div>
+
+    <label>Lời chúc / Kỷ niệm gửi Bộ môn<textarea name="loiChuc" rows="3" maxlength="500"></textarea></label>
+
+    <label class="inline consent"><input type="checkbox" name="dongY" required> Tôi đồng ý để Ban tổ chức sử dụng thông tin trên cho mục đích tổ chức sự kiện. *</label>
+
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn" type="submit" id="submitBtn">Gửi xác nhận</button>
+  </form>
+
+  <div id="success" class="success" hidden>
+    <h3>✅ Cảm ơn Quý vị đã xác nhận!</h3>
+    <p>Mã đăng ký của bạn: <b id="ticketCode"></b></p>
+    <p>Vui lòng lưu/chụp lại mã này và xuất trình khi đón tiếp đại biểu.</p>
+    <div id="qrTicket"></div>
+    <button class="btn" type="button" onclick="location.reload()">Đăng ký thêm người khác</button>
+  </div>
+</section>
+
+<section id="lien-he" class="sec alt">
+  <h2>LIÊN HỆ &amp; HỖ TRỢ</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Thư ký Ban tổ chức</h3>
+      <p>Mọi thông tin hỗ trợ Hội thảo vui lòng liên hệ:<br><b>ThS. Nguyễn Hải Hà</b><br>
+      📞 <a href="tel:0812422324">0812 422 324</a></p>
+      <h3>Bộ môn Địa kỹ thuật và Không gian ngầm</h3>
+      <p>Trưởng bộ môn: GS.TS. Trần Thế Truyền<br>Phó trưởng bộ môn: PGS.TS. Nguyễn Châu Lân</p>
+    </div>
+    <div class="card pay">
+      <h3>Thông tin tài khoản</h3>
+      <img src="assets/vietqr_vib.jpg" alt="Mã VietQR – Ngân hàng Quốc tế VIB – Nguyễn Hải Hà – 862804" loading="lazy">
+      <p>Chủ tài khoản: <b>NGUYỄN HẢI HÀ</b><br>
+      Số tài khoản: <b id="stk">862804</b> <button class="mini" type="button" id="copyStk">Sao chép</button><br>
+      Ngân hàng Quốc tế VIB</p>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Bộ môn Địa kỹ thuật và Không gian ngầm – Trường Đại học Giao thông vận tải · <a href="admin.html">Quản trị</a></footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+

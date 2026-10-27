@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quản trị đăng ký – 60 năm ĐKT</title><link rel="stylesheet" href="style.css"></head>
+<body><div class="adm">
+<h1>Danh sách đăng ký tham dự</h1>
+<div id="gate"><label>Mật khẩu quản trị<input type="password" id="pw"></label><button class="btn" id="go">Đăng nhập</button></div>
+<div id="panel" hidden>
+  <p id="modeNote"></p>
+  <div class="stats" id="stats"></div>
+  <button class="btn" id="csv">Tải CSV (Excel)</button>
+  <button class="mini" id="clear">Xóa dữ liệu thử nghiệm</button>
+  <table id="tbl"></table>
+</div>
+<p><a href="index.html">← Về trang thư mời</a></p>
+</div>
+<script src="config.js"></script>
+<script>
+const C=window.CONFIG, KEY="dkt60_registrations", $=s=>document.querySelector(s);
+const cols=[["maDangKy","Mã"],["thoiGian","Thời gian"],["hoTen","Họ tên"],["chucDanh","Chức danh"],["donVi","Đơn vị"],["nhom","Nhóm"],["sdt","SĐT"],["email","Email"],["thamDu","Tham dự"],["nguoiDiCung","Đi cùng"],["anUong","Ăn uống"],["noiDung","Nội dung"],["thamLuan","Tham luận"],["loiChuc","Lời chúc"]];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+$("#go").onclick=()=>{ if($("#pw").value===C.adminPass){$("#gate").hidden=true;$("#panel").hidden=false;render();} else alert("Sai mật khẩu"); };
+function render(){
+  if(C.endpoint){ $("#modeNote").innerHTML='Dữ liệu được lưu trên <b>Google Sheet</b> của Ban tổ chức (qua Apps Script). Vui lòng xem trực tiếp trên Sheet.'; $("#csv").hidden=$("#clear").hidden=true; return; }
+  $("#modeNote").textContent="⚠ Chế độ thử nghiệm: dữ liệu chỉ lưu trong trình duyệt này. Cấu hình endpoint trong config.js để thu dữ liệu tập trung.";
+  const d=JSON.parse(localStorage.getItem(KEY)||"[]");
+  const yes=d.filter(x=>x.thamDu==="Có");
+  $("#stats").innerHTML=`<div><b>${d.length}</b>Phản hồi</div><div><b>${yes.length}</b>Xác nhận tham dự</div><div><b>${yes.reduce((a,x)=>a+1+Number(x.nguoiDiCung||0),0)}</b>Tổng số người (kể cả đi cùng)</div><div><b>${d.length-yes.length}</b>Không tham dự</div>`;
+  $("#tbl").innerHTML="<tr>"+cols.map(c=>`<th>${c[1]}</th>`).join("")+"</tr>"+d.map(r=>"<tr>"+cols.map(c=>`<td>${esc(r[c[0]])}</td>`).join("")+"</tr>").join("");
+  $("#csv").onclick=()=>{
+    const q=v=>{v=String(v??"");if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';};
+    const t="\ufeff"+[cols.map(c=>q(c[1])).join(",")].concat(d.map(r=>cols.map(c=>q(r[c[0]])).join(","))).join("\r\n");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download="dang_ky_60nam_DKT.csv";a.click();};
+  $("#clear").onclick=()=>{ if(confirm("Xóa toàn bộ dữ liệu cục bộ?")){localStorage.removeItem(KEY);render();} };
+}
+</script></body></html>
+
