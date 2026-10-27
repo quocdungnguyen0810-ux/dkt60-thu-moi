@@ -126,7 +126,7 @@ form.addEventListener("submit", async (ev) => {
     $("#success").scrollIntoView({ behavior: "smooth" });
   } catch (e) {
     console.error(e);
-    err.textContent = "Gửi không thành công, vui lòng thử lại hoặc liên hệ ThS. Nguyễn Hải Hà (0812 422 324).";
+    err.textContent = "Gửi không thành công, vui lòng thử lại hoặc liên hệ ThS. Trần Thị Thu Hiền (0983 821 637).";
     btn.disabled = false; btn.textContent = "Gửi xác nhận";
   }
 });
