@@ -31,3 +31,4 @@ def tao_qr(url: str, ten: str) -> None:
 
 if __name__ == "__main__":
     tao_qr(sys.argv[1] if len(sys.argv) > 1 else DEFAULT_URL, "qr_xac_nhan_tham_du")
+
