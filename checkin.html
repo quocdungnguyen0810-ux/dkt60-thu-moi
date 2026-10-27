@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Check-in – 60 năm ĐKT</title><link rel="stylesheet" href="style.css">
+<style>
+.ck{max-width:720px;margin:0 auto;padding:1rem}
+video{width:100%;border-radius:12px;background:#000;max-height:50vh;object-fit:cover}
+.res{padding:1rem;border-radius:12px;margin:1rem 0;font-size:1.1rem;font-weight:600;background:#eef;border:2px solid #99c}
+.res.ok{background:#e8f7e8;border-color:#3a8a3a}.res.dup{background:#fff3d6;border-color:#e0a000}.res.bad{background:#fde7e7;border-color:#b3261e}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0}.row input{flex:1;min-width:160px}
+#log{font-size:.85rem}
+</style></head>
+<body><div class="ck">
+<h1>Check-in đại biểu</h1>
+<p>1) Tải danh sách đăng ký từ Google Sheet (<i>Tệp → Tải xuống → CSV</i>) rồi nạp vào đây. Dữ liệu chỉ nằm trong trình duyệt của máy này.</p>
+<div class="row"><input type="file" id="csvIn" accept=".csv"><span id="loaded">Chưa nạp danh sách</span></div>
+<p>2) Quét mã QR trên vé của đại biểu (hoặc nhập mã thủ công).</p>
+<video id="v" playsinline muted></video>
+<div class="row"><button class="btn" id="cam">Bật camera</button>
+<input id="man" placeholder="Nhập mã DKT60-XXXXXX" maxlength="20"><button class="btn" id="add">Check-in</button></div>
+<div class="res" id="res">Sẵn sàng.</div>
+<div class="stats" id="stats"></div>
+<button class="btn" id="exp">Tải danh sách đã check-in (CSV)</button>
+<button class="mini" id="clr">Xóa dữ liệu check-in</button>
+<h3>Nhật ký</h3><div id="log"></div>
+<p><a href="index.html">← Trang thư mời</a></p>
+</div>
+<script src="vendor/jsQR.js"></script>
+<script>
+"use strict";
+const $=s=>document.querySelector(s), KEY="dkt60_checkin", REG="dkt60_reglist";
+const CODE_RE=/^DKT60-[A-Z2-9]{6}$/;
+let reg=JSON.parse(localStorage.getItem(REG)||"{}");      // mã -> {hoTen,donVi,thamDu,nguoiDiCung}
+let done=JSON.parse(localStorage.getItem(KEY)||"{}");     // mã -> {thoiGian,hoTen,donVi}
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function parseCSV(t){const rows=[];let r=[],f="",q=false;t=t.replace(/^\ufeff/,"");
+ for(let i=0;i<t.length;i++){const c=t[i];
+  if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+  else if(c=='"')q=true;else if(c==","){r.push(f);f=""}
+  else if(c=="\n"){r.push(f.replace(/\r$/,""));rows.push(r);r=[];f=""}else f+=c}
+ if(f||r.length){r.push(f);rows.push(r)} return rows}
+
+$("#csvIn").onchange=async e=>{
+ const rows=parseCSV(await e.target.files[0].text()); if(rows.length<2) return alert("File rỗng");
+ const head=rows[0].map(h=>h.trim().toLowerCase());
+ const idx=(...k)=>head.findIndex(h=>k.some(x=>h.includes(x)));
+ let ic=idx("madangky","mã đăng ký","ma dang ky");
+ if(ic<0) ic=rows[1].findIndex(c=>CODE_RE.test(c.trim()));       // dự phòng: cột chứa mã
+ if(ic<0) return alert("Không tìm thấy cột Mã đăng ký trong file.");
+ const iN=idx("hoten","họ"),iD=idx("donvi","đơn vị"),iT=idx("thamdu","tham dự"),iP=idx("nguoidicung","đi cùng");
+ reg={}; let dupCnt=0;
+ rows.slice(1).forEach(r=>{const c=(r[ic]||"").trim(); if(!CODE_RE.test(c)) return; if(reg[c]) dupCnt++;
+  reg[c]={hoTen:r[iN]||"",donVi:r[iD]||"",thamDu:r[iT]||"",nguoiDiCung:r[iP]||"0"}});
+ localStorage.setItem(REG,JSON.stringify(reg)); show();
+ if(dupCnt) alert("Cảnh báo: có "+dupCnt+" mã bị trùng trong danh sách.");
+};
+
+function msg(cls,html){const r=$("#res");r.className="res "+cls;r.innerHTML=html}
+function checkin(raw){
+ const code=String(raw||"").trim().toUpperCase();
+ if(!CODE_RE.test(code)) return msg("bad","❌ Mã không hợp lệ: "+esc(code));
+ const info=reg[code];
+ if(Object.keys(reg).length && !info) return msg("bad","❌ Mã <b>"+code+"</b> không có trong danh sách đăng ký.");
+ if(info && info.thamDu && info.thamDu!=="Có") return msg("bad","⚠ "+esc(info.hoTen)+" đã đăng ký <b>KHÔNG tham dự</b>.");
+ if(done[code]) return msg("dup","⚠ Đã check-in lúc "+new Date(done[code].thoiGian).toLocaleTimeString("vi-VN")+" — "+esc(done[code].hoTen||code));
+ done[code]={thoiGian:new Date().toISOString(),hoTen:info?.hoTen||"",donVi:info?.donVi||"",nguoiDiCung:info?.nguoiDiCung||"0"};
+ localStorage.setItem(KEY,JSON.stringify(done));
+ msg("ok","✅ <b>"+esc(info?.hoTen||code)+"</b><br>"+esc(info?.donVi||"")+(info&&+info.nguoiDiCung?"<br>Đi cùng: "+esc(info.nguoiDiCung)+" người":"")); show();
+}
+function show(){
+ const n=Object.keys(reg).length, yes=Object.values(reg).filter(x=>x.thamDu==="Có").length, d=Object.keys(done).length;
+ $("#loaded").textContent=n?`Đã nạp ${n} đăng ký`:"Chưa nạp danh sách";
+ $("#stats").innerHTML=`<div><b>${d}</b>Đã check-in</div><div><b>${yes}</b>Đăng ký tham dự</div>`;
+ $("#log").innerHTML=Object.entries(done).sort((a,b)=>b[1].thoiGian.localeCompare(a[1].thoiGian)).slice(0,30)
+  .map(([c,v])=>`${new Date(v.thoiGian).toLocaleTimeString("vi-VN")} · ${c} · ${esc(v.hoTen)}`).join("<br>");
+}
+$("#add").onclick=()=>{checkin($("#man").value);$("#man").value=""};
+$("#man").onkeydown=e=>{if(e.key==="Enter")$("#add").click()};
+
+// Quét camera bằng jsQR (chạy được cả iPhone/Android)
+let stream=null,last="",lastT=0;
+$("#cam").onclick=async()=>{
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});}
+ catch{return msg("bad","Không mở được camera (cần HTTPS và cấp quyền).")}
+ const v=$("#v");v.srcObject=stream;await v.play();const cv=document.createElement("canvas"),g=cv.getContext("2d",{willReadFrequently:true});
+ (function loop(){ if(!stream)return;
+  if(v.videoWidth){cv.width=v.videoWidth;cv.height=v.videoHeight;g.drawImage(v,0,0);
+   const im=g.getImageData(0,0,cv.width,cv.height),r=jsQR(im.data,im.width,im.height);
+   if(r&&r.data&&(r.data!==last||Date.now()-lastT>4000)){last=r.data;lastT=Date.now();checkin(r.data)}}
+  requestAnimationFrame(loop)})();
+};
+$("#exp").onclick=()=>{const q=v=>{v=String(v??"");if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+ const t="\ufeff"+["Mã,Thời gian,Họ tên,Đơn vị,Đi cùng"].concat(Object.entries(done).map(([c,v])=>[c,v.thoiGian,v.hoTen,v.donVi,v.nguoiDiCung].map(q).join(","))).join("\r\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download="checkin_60nam_DKT.csv";a.click()};
+$("#clr").onclick=()=>{if(confirm("Xóa toàn bộ dữ liệu check-in trên máy này?")){done={};localStorage.removeItem(KEY);show()}};
+show();
+</script></body></html>

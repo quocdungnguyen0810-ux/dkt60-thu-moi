@@ -29,6 +29,36 @@ form.addEventListener("change", () => {
   $("#attendBox").style.display = v === "Không" ? "none" : "";
 });
 
+// ---- Vé check-in: QR chỉ chứa mã đăng ký (không chứa dữ liệu cá nhân) ----
+function renderTicket(rec) {
+  const qr = qrcode(0, "H"); qr.addData(rec.maDangKy); qr.make();
+  const n = qr.getModuleCount(), cell = 10, quiet = 4, qs = (n + quiet * 2) * cell;
+  const W = 640, H = qs + 330;
+  const cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+  const g = cv.getContext("2d");
+  g.fillStyle = "#fff"; g.fillRect(0, 0, W, H);
+  g.strokeStyle = "#b98a3e"; g.lineWidth = 6; g.strokeRect(10, 10, W - 20, H - 20);
+  g.textAlign = "center"; g.fillStyle = "#0000cc"; g.font = "bold 26px Arial";
+  g.fillText("GIẤY XÁC NHẬN THAM DỰ", W / 2, 62);
+  g.fillStyle = "#ff9900"; g.font = "bold 22px Arial";
+  g.fillText("60 NĂM ĐỊA KỸ THUẬT · 1966 – 2026", W / 2, 96);
+  g.fillStyle = "#0a2a8a"; g.font = "bold 28px Arial";
+  g.fillText(rec.hoTen.slice(0, 34), W / 2, 150);
+  g.font = "18px Arial"; g.fillText(rec.donVi.slice(0, 48), W / 2, 180);
+  const ox = (W - qs) / 2, oy = 200;
+  g.fillStyle = "#fff"; g.fillRect(ox, oy, qs, qs); g.fillStyle = "#0a2a8a";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++)
+    if (qr.isDark(r, c)) g.fillRect(ox + (c + quiet) * cell, oy + (r + quiet) * cell, cell, cell);
+  g.fillStyle = "#1d2733"; g.font = "bold 32px monospace";
+  g.fillText(rec.maDangKy, W / 2, oy + qs + 45);
+  g.font = "17px Arial";
+  g.fillText("08:30 – 11:30, 18/11/2026 · Phòng 601, nhà A1, ĐH Giao thông vận tải", W / 2, oy + qs + 80);
+  g.fillText("Xuất trình mã này tại bàn đón tiếp" + (rec.nguoiDiCung ? ` · Đi cùng: ${rec.nguoiDiCung} người` : ""), W / 2, oy + qs + 105);
+  const url = cv.toDataURL("image/png");
+  $("#qrTicket").innerHTML = `<img src="${url}" alt="Vé check-in ${rec.maDangKy}" style="max-width:320px;width:100%;border-radius:8px;border:1px solid #ccc">` +
+    `<p><a class="btn" download="Ve_${rec.maDangKy}.png" href="${url}">Tải ảnh vé check-in</a></p>`;
+}
+
 // ---- Kiểm tra & gửi ----
 const PHONE_RE = /^(0|\+84)\d{9,10}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -89,6 +119,7 @@ form.addEventListener("submit", async (ev) => {
     }
     form.hidden = true;
     $("#ticketCode").textContent = attending ? rec.maDangKy : rec.maDangKy + " (không tham dự)";
+    if (attending) renderTicket(rec);
     $("#success").hidden = false;
     $("#success").scrollIntoView({ behavior: "smooth" });
   } catch (e) {
