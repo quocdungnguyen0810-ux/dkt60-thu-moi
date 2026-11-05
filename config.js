@@ -1,7 +1,6 @@
 // Cấu hình chung của nền tảng thư mời
 window.CONFIG = {
   eventDate: "2026-11-18T14:00:00+07:00",   // Thời điểm bắt đầu chương trình
-  deadlineText: "10/11/2026",               // Hạn xác nhận (CHỈNH theo quyết định của BTC)
   // URL Web App của Google Apps Script (xem apps_script.gs). Để trống => lưu tạm trên trình duyệt (chỉ để thử nghiệm).
   endpoint: "https://script.google.com/macros/s/AKfycbyeImWBacg4o29PX70p-OG3MiiZXl25pby-FOEuZR7SA6qH9sGnl72PFvldFWnMiWQI/exec",
   // Mật khẩu trang quản trị chế độ cục bộ (chỉ mang tính nhắc nhở, KHÔNG phải bảo mật thực sự).

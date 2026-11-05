@@ -14,7 +14,6 @@ function tick() {
     .map(([v, l]) => `<div><b>${v}</b>${l}</div>`).join("");
 }
 tick(); setInterval(tick, 1000);
-$("#deadline").textContent = C.deadlineText;
 
 // ---- Sao chép STK ----
 $("#copyStk").addEventListener("click", async (e) => {
