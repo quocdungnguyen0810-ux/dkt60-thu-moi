@@ -54,7 +54,7 @@ function renderTicket(rec) {
   g.fillStyle = "#1d2733"; g.font = "bold 32px monospace";
   g.fillText(rec.maDangKy, W / 2, oy + qs + 45);
   g.font = "17px Arial";
-  g.fillText("08:30 – 11:30, 18/11/2026 · Phòng 601, nhà A1, ĐH Giao thông vận tải", W / 2, oy + qs + 80);
+  g.fillText("14:00 – 17:30, 18/11/2026 · Phòng 601, nhà A1, ĐH Giao thông vận tải", W / 2, oy + qs + 80);
   g.fillText("Xuất trình mã này tại bàn đón tiếp" + (rec.nguoiDiCung ? ` · Đi cùng: ${rec.nguoiDiCung} người` : ""), W / 2, oy + qs + 105);
   const url = cv.toDataURL("image/png");
   $("#qrTicket").innerHTML = `<img src="${url}" alt="Vé check-in ${rec.maDangKy}" style="max-width:320px;width:100%;border-radius:8px;border:1px solid #ccc">` +
@@ -126,7 +126,7 @@ form.addEventListener("submit", async (ev) => {
     $("#success").scrollIntoView({ behavior: "smooth" });
   } catch (e) {
     console.error(e);
-    err.textContent = "Gửi không thành công, vui lòng thử lại hoặc liên hệ ThS. Trần Thị Thu Hiền (0983 821 637).";
+    err.textContent = "Gửi không thành công, vui lòng thử lại hoặc liên hệ ThS. Nguyễn Hải Hà (0812 422 324).";
     btn.disabled = false; btn.textContent = "Gửi xác nhận";
   }
 });

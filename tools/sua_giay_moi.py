@@ -86,8 +86,10 @@ def main() -> None:
         rels = zin.read("word/_rels/document.xml.rels").decode("utf-8")
         ctypes = zin.read("[Content_Types].xml").decode("utf-8")
 
-        # 1) Thư ký BTC: Trần Thị Thu Hiền (SĐT: 0983821637)
-        doc = thay(doc, "<w:t>0983821677</w:t>", "<w:t>0983821637</w:t>")
+        # 1) Thư ký BTC: Trần Thị Thu Hiền (0983821677) -> Nguyễn Hải Hà (0812422324)
+        doc = thay(doc, "<w:t>Trần Thị Thu Hi</w:t>", "<w:t>Nguyễn Hải Hà</w:t>")
+        doc = thay(doc, '<w:t xml:space="preserve">ền </w:t>', '<w:t xml:space="preserve"> </w:t>')
+        doc = thay(doc, "<w:t>0983821677</w:t>", "<w:t>0812422324</w:t>")
 
         # 2) Thêm dòng số tài khoản sau dòng Thư ký (cuối ô cuối của bảng)
         anchor = "<w:t>)</w:t></w:r></w:p></w:tc></w:tr></w:tbl>"
