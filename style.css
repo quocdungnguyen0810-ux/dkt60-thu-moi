@@ -43,6 +43,27 @@ h2::after{content:"";display:block;width:80px;height:3px;background:linear-gradi
 .timeline li::before{content:"";position:absolute;left:-9px;top:.4rem;width:15px;height:15px;border-radius:50%;background:var(--navy);border:3px solid var(--gold)}
 .timeline time{font-weight:700;color:#fff;background:var(--blue);padding:.1rem .6rem;border-radius:6px}
 .timeline h3{margin:.6rem 0 .2rem;color:var(--navy)}
+.prog-list{list-style:none;padding:0;margin:.5rem 0 .8rem;display:flex;flex-direction:column;gap:.35rem}
+.prog-list li{background:#fff;border:1px solid #d5e3f0;border-left:3px solid var(--gold);border-radius:8px;padding:.4rem .7rem;font-size:.95rem}
+.prog-list .p-time{display:inline-block;min-width:105px;font-weight:700;color:var(--blue)}
+.seminar-time-pill{display:inline-block;font-size:.82rem;background:linear-gradient(90deg,var(--navy),var(--blue));color:#fff;padding:.15rem .65rem;border-radius:999px;vertical-align:middle;margin-left:.4rem;border-right:3px solid var(--orange)}
+.seminar-agenda{display:flex;flex-direction:column;gap:.85rem;margin:1rem 0 1.2rem}
+.seminar-item{display:grid;grid-template-columns:150px 1fr;gap:1rem;align-items:center;background:#fff;border:1px solid #bfd7ea;border-left:4px solid var(--blue);border-radius:12px;padding:.75rem .9rem;box-shadow:0 3px 10px rgba(10,42,138,.06)}
+.seminar-thumb{width:150px;height:88px;object-fit:cover;border-radius:8px;border:1.5px solid var(--gold-l);display:block}
+.seminar-info h4{margin:.25rem 0 .35rem;color:var(--navy);font-size:1.02rem;line-height:1.35}
+.seminar-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.seminar-meta .slot{background:var(--navy);color:#fff;font-weight:700;font-size:.82rem;padding:.1rem .55rem;border-radius:999px;border-right:2px solid var(--orange)}
+.seminar-meta .tag{background:#e6f2ff;color:var(--blue);font-weight:700;font-size:.78rem;padding:.1rem .5rem;border-radius:6px}
+.seminar-info .speaker{margin:0;font-size:.92rem;color:#1e293b;background:linear-gradient(90deg,#e8f2fc,#f8fbff);padding:.25rem .6rem;border-radius:6px;border-left:2px solid var(--gold)}
+.seminar-info .speaker b{color:var(--navy)}
+.seminar-downloads{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0}
+.btn-outline{display:inline-block;background:#fff;color:var(--navy);border:1.5px solid var(--blue);border-radius:999px;padding:.45rem 1rem;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .15s}
+.btn-outline:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.poster-preview{margin:.8rem 0 1.2rem;background:#fff;border:1px solid #d5e3f0;border-radius:10px;padding:.6rem .9rem}
+.poster-preview summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:.95rem}
+.poster-wrap{margin-top:.75rem;text-align:center}
+.poster-wrap img{max-width:100%;height:auto;border-radius:8px;border:1px solid #ccd;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+@media(max-width:640px){.seminar-item{grid-template-columns:1fr}.seminar-thumb{width:100%;height:150px}}
 form{background:#fff;border:1px solid #e3d9bf;border-radius:14px;padding:1.4rem;box-shadow:0 4px 14px rgba(0,0,0,.05)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
 label{display:block;font-weight:600;margin-bottom:.9rem}
